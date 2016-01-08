@@ -10,6 +10,10 @@ resource "aws_network_interface" "nat" {
     Environment = "${var.environment}"
     Service     = "nat"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_eip" "nat" {
@@ -23,6 +27,10 @@ resource "aws_eip" "nat" {
     Environment = "${var.environment}"
     Service     = "nat"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_nat_gateway" "nat" {
@@ -35,6 +43,10 @@ resource "aws_nat_gateway" "nat" {
     Name        = "${var.name}"
     Environment = "${var.environment}"
     Service     = "nat"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
