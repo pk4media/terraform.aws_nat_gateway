@@ -8,6 +8,7 @@ variable "environment" {
   description = "Environment (development, staging, production)"
 }
 
+variable "vpc_id" {}
 variable "public_subnets" {
   description = "The CIDR blocks of the public Subnets"
 }
