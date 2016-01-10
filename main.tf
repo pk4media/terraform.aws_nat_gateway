@@ -22,12 +22,6 @@ resource "aws_eip" "nat" {
 
   vpc = true
 
-  tags {
-    Name        = "${var.name}"
-    Environment = "${var.environment}"
-    Service     = "nat"
-  }
-
   lifecycle {
     create_before_destroy = true
   }
@@ -38,12 +32,6 @@ resource "aws_nat_gateway" "nat" {
 
   allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
   subnet_id     = "${element(split(",", var.subnet_ids), count.index)}"
-
-  tags {
-    Name        = "${var.name}"
-    Environment = "${var.environment}"
-    Service     = "nat"
-  }
 
   lifecycle {
     create_before_destroy = true
