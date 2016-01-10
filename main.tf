@@ -1,24 +1,5 @@
-resource "aws_network_interface" "nat" {
-  count             = "${length(split(",", var.public_subnets))}"
-
-  subnet_id         = "${element(split(",", var.subnet_ids), count.index)}"
-
-  source_dest_check = false
-
-  tags {
-    Name        = "${var.name}"
-    Environment = "${var.environment}"
-    Service     = "nat"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "aws_eip" "nat" {
   count             = "${length(split(",", var.public_subnets))}"
-  network_interface = "${element(aws_network_interface.nat.*.id, count.index)}"
 
   vpc = true
 
